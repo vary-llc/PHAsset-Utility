@@ -52,7 +52,7 @@
         [self requestContentEditingInputWithOptions:editOptions completionHandler:^(PHContentEditingInput *contentEditingInput, NSDictionary *info) {
             CIImage *image = [CIImage imageWithContentsOfURL:contentEditingInput.fullSizeImageURL];
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(image.properties);
+                completionBlock([@"url":contentEditingInput.fullSizeImageURL, @"metadata":image.properties]);
             });
         }];
     });

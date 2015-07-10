@@ -50,9 +50,10 @@
         PHContentEditingInputRequestOptions *editOptions = [[PHContentEditingInputRequestOptions alloc]init];
         editOptions.networkAccessAllowed = YES;
         [self requestContentEditingInputWithOptions:editOptions completionHandler:^(PHContentEditingInput *contentEditingInput, NSDictionary *info) {
-            CIImage *image = [CIImage imageWithContentsOfURL:contentEditingInput.fullSizeImageURL];
+            NSURL *url = contentEditingInput.fullSizeImageURL;
+            CIImage *image = [CIImage imageWithContentsOfURL:url];
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock([@"url":contentEditingInput.fullSizeImageURL, @"metadata":image.properties]);
+                completionBlock([@"url":url, @"metadata":image.properties]);
             });
         }];
     });

@@ -107,6 +107,23 @@
     }];
 }
 
++(void)saveImageAtURL:(NSURL*)url location:(CLLocation*)location completionBlock:(PHAssetAssetBoolBlock)completionBlock{
+    __block PHObjectPlaceholder *placeholderAsset = nil;
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        PHAssetChangeRequest *newAssetRequest = [PHAssetChangeRequest creationRequestForAssetFromImageAtFileURL:url];
+        newAssetRequest.location = location;
+        newAssetRequest.creationDate = [NSDate date];
+        placeholderAsset = newAssetRequest.placeholderForCreatedAsset;
+    } completionHandler:^(BOOL success, NSError *error) {
+        if(success){
+            PHAsset *asset = [self getAssetFromlocalIdentifier:placeholderAsset.localIdentifier];
+            completionBlock(asset, YES);
+        } else {
+            completionBlock(nil, NO);
+        }
+    }];
+}
+
 #pragma mark Private helpers
 
 -(PHAssetCollection*)albumWithTitle:(NSString*)title{

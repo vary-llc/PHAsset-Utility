@@ -56,6 +56,15 @@ typedef void (^PHAssetAssetBoolBlock)(PHAsset *asset, BOOL success);
  */
 +(void)saveVideoAtURL:(NSURL*)url location:(CLLocation*)location completionBlock:(PHAssetAssetBoolBlock)completionBlock;
 
+/*!
+ @method        saveImageAtURL:location:completionBlock
+ @description   Save an image to camera roll with optional completion (returns PHAsset in completion block)
+ @param         location               A CLLocation object to be written to the PHAsset. See CoreLocation framework for obtaining locations. This parameter may be nil.
+ @param         creationDate           An NSDate to be written to the PHAsset.
+ @param         completionBlock        Returns the PHAsset which was written and BOOL for success. This parameter may be nil.
+ */
++(void)saveImageAtURL:(NSURL*)url location:(CLLocation*)location completionBlock:(PHAssetAssetBoolBlock)completionBlock;
+
 @end
 
 
